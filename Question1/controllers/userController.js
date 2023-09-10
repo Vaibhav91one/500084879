@@ -11,14 +11,14 @@ const loginUser = asyncHandler(async (req, res) => {
     //     throw new Error("All fields are mandatory!");
     // }
 
-    // const body = JSON.stringify({
-    //     "companyName": "Train Drag",
-    //     "clientID": "c814790d-1fe2-408d-86bc-e9c211de7fd1",
-    //     "clientSecret": "rTgqubNiIzWcEZsd",
-    //     "ownerName": "Vaibhav",
-    //     "ownerEmail": "500084879@stu.upes.ac.in",
-    //     "rollNo": "500084879"
-    //   });
+    const body = JSON.stringify({
+        "companyName": "Train Drag",
+        "clientID": "c814790d-1fe2-408d-86bc-e9c211de7fd1",
+        "clientSecret": "rTgqubNiIzWcEZsd",
+        "ownerName": "Vaibhav",
+        "ownerEmail": "500084879@stu.upes.ac.in",
+        "rollNo": "500084879"
+      });
 
     // Make a request to the auth URL.
     const response = await request(authUrl, {

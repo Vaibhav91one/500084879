@@ -22,19 +22,39 @@ const sendAuthRequest = async () => {
       return data.access_token;
     } else {
       // The request failed.
-      throw new Error(response.statusText);
+      return false;
     }
   };
 
+  const getTrainsReq = async () => {
+    const accessToken = await sendAuthRequest();
+    console.log(accessToken)
+  
+    const response = await fetch('http://20.244.56.144/train/trains', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  
+    if (response.status === 200) {
+      // The request was successful.
+      const data = await response.json();
+      return data;
+    } else {
+      // The request failed.
+      throw new Error(response.statusText);
+    }
+  };
 
 //@desc Get all contacts
 //@route GET /api/contacts
 //@access private
 const getTrains = asyncHandler(async (req, res) => {
-    const data = await sendAuthRequest();
-    console.log(data);
+    let trains = await getTrainsReq();
+    console.log(trains)
     // const contacts = await Contact.find({user_id: req.user.id});
-    res.status(200).json({ message: "working getTrains" });
+    res.status(200).json(trains);
 });
 
 //@desc Get Contact
