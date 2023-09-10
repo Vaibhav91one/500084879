@@ -4,8 +4,8 @@ const request = require("request")
 const sendAuthRequest = async () => {
     const body = JSON.stringify({
         companyName: "Train Drag",
-        clientID: "c814790d-1fe2-408d-86bc-e9c211de7fd1",
-        clientSecret: "rTgqubNiIzWcEZsd",
+        clientID: process.env.CLIENT_ID,
+        clientSecret: process.env.CLIENT_SECRET,
         ownerName: "Vaibhav",
         ownerEmail: "500084879@stu.upes.ac.in",
         rollNo: "500084879",
@@ -42,7 +42,17 @@ const getTrainsReq = async () => {
     if (response.status === 200) {
         // The request was successful.
         const data = await response.json();
-        return data;
+        const sortedTrains = data.sort((a, b) => {
+            if (a.price.sleeper < b.price.sleeper) {
+              return -1;
+            } else if (a.price.sleeper > b.price.sleeper) {
+              return 1;
+            } else {
+              return b.departureTime - a.departureTime;
+            }
+          });
+          return sortedTrains;
+        // return data;
     } else {
         // The request failed.
         throw new Error(response.statusText);
